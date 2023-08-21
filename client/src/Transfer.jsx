@@ -1,7 +1,7 @@
 import { useState } from "react";
 import server from "./server";
-import { hashMessage, getPublicKey, signMessage, getEthAddress } from "./scripts/crypto";
-import { toHex, utf8ToBytes } from 'ethereum-cryptography/utils';
+import { hashMessage, signMessage } from "./scripts/crypto";
+import { toHex } from 'ethereum-cryptography/utils';
 
 function Transfer({ setBalance, address, privateKey }) {
   const [sendAmount, setSendAmount] = useState("");

@@ -29,22 +29,6 @@ app.get("/balance/:address", (req, res) => {
   res.send({ balance });
 });
 
-/**
- * Video transcript:
- * "get a signature from the client"
- * "get the sender's address from the signature - Don't allow the sender to be sent through the request"
- * 
- * Receive from the client:
- *    - signature
- *    - senderPublicKey
- *    - intentMessageHash
- *    - amount (optional)
- *    - recipient (optional)
- * 
- * In js-ethereum-cryptography 2.0 I can check if the PublicKey sent from the client matches the one in the signature
- * This way I can authenticate that whoever signed the message of the public key had the private key to sign it.
- * For this I also need the exact intentMessage used in the signature
- */
 app.post("/send", (req, res) => {
 
   const { signature, senderPublicKey, intentMessageHash, amount, recipient } = req.body;
@@ -55,10 +39,6 @@ app.post("/send", (req, res) => {
   console.log("sendAmount: " + amount)
   console.log("recipient: " + recipient)
   console.log("intent hex: " + intentMessageHash);
-
-  // since I sent the signature from the client to the server as json, it has lost it's recoverPublicKey method
-  // instead of recovering the public address from the signature, I'm going to use secp256k1's "verify" method 
-  // to check if the signature's public key matches the one sent from the client as such:
 
   sig.r = BigInt(sig.r);
 	sig.s = BigInt(sig.s);
